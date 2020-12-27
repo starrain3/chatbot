@@ -243,7 +243,7 @@ class TocMachine(GraphMachine):
 
         if(i == 16):
             send_message(reply_token, canmessage1)
-            self.go_back6()
+            self.go_back5()
 
         reply_arr = []
         str_arr = []
