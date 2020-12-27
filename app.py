@@ -142,7 +142,7 @@ def callback():
     # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
-
+    
     # parse webhook body
     try:
         events = parser.parse(body, signature)
@@ -170,8 +170,6 @@ def callback():
                         send_text_message(event.reply_token, "輸入錯誤，請再確認一次\n請輸入你的星座:\n牡羊座 請輸入0\n金牛座 請輸入1\n雙子座 請輸入2\n巨蟹座 請輸入3\n獅子座 請輸入4\n處女座 請輸入5\n天秤座 請輸入6\n天蠍座 請輸入7\n射手座 請輸入8\n摩羯座 請輸入9\n水瓶座 請輸入10\n雙魚座 請輸入11\n輸入12返回上一頁")
                     else:
                         send_text_message(event.reply_token, "系統忙碌中")
-                # else:
-                #     send_text_message(event.reply_token, "ENTERING STATE")
                 print(f"\nFSM STATE: {machine.state}")
                 return "OK"
         if(str(machine.state) == "user"): 

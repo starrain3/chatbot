@@ -1,5 +1,5 @@
 from transitions.extensions import GraphMachine
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, TemplateSendMessage, ButtonsTemplate, MessageTemplateAction, ImageSendMessage
 from utils import send_text_message, send_message
 import requests
 canmessage = TemplateSendMessage(
@@ -171,7 +171,7 @@ class TocMachine(GraphMachine):
         # reply_arr.append(TextSendMessage("幸運數字: "+res.text[res.text.find('"NUMERAL">')+10:res.text.find('"NUMERAL">')+11]))
         pos = res.text[res.text.find('title02.png')+52:res.text.find('title02.png')+90]
         # reply_arr.append(TextSendMessage("幸運顏色: "+pos[pos.find("<h4>")+4:pos.find("<h4>")+7]))
-        str_arr = str_arr + "幸運顏色: "+pos[pos.find("<h4>")+4:pos.find("<h4>")+7] 
+        str_arr = str_arr + "幸運顏色: "+pos[pos.find("<h4>")+4:pos.find("<h4>")+7]+"\n\n資料來源:科技紫微網" 
 
         reply_arr.append(TextSendMessage(str_arr))
         reply_arr.append(canmessage)
@@ -208,6 +208,7 @@ class TocMachine(GraphMachine):
 
         reply_arr = []
         reply_arr.append(TextSendMessage("就跟你說不要按了..."))
+        reply_arr.append(ImageSendMessage(original_content_url='https://ppt.cc/fJIegx@.png',preview_image_url='https://ppt.cc/fJIegx@.png'))
         reply_arr.append(canmessage1)
         send_message(reply_token, reply_arr)
         self.go_back5()
@@ -315,7 +316,7 @@ class TocMachine(GraphMachine):
             else:
                 pos1 = "0%"
         # reply_arr.append(TextSendMessage("凌晨 " + pos+"C 降雨機率 "+pos1))
-        str_arr = str_arr +"凌晨 " + pos+"C 降雨機率 "+pos1
+        str_arr = str_arr +"凌晨 " + pos+"C 降雨機率 "+pos1+"\n\n資料來源:weather.com"
         # print("凌晨 " + pos+"C 降雨機率 "+pos1)
         reply_arr.append(TextSendMessage(str_arr))
         reply_arr.append(canmessage1)
