@@ -34,7 +34,7 @@ canmessage1 = TemplateSendMessage(
                                 template = ButtonsTemplate(
                                     thumbnail_image_url='https://ppt.cc/f6aUmx@.png',
                                     title = '請問需要什麼服務?',
-                                    text = '如需返回請按返回鍵或輸入"返回"',
+                                    text = '如需返回上一頁請按返回鍵或輸入"返回"',
                                     actions=[
                                         MessageTemplateAction(
                                             label = '今日各地天氣預報',
@@ -221,7 +221,7 @@ class TocMachine(GraphMachine):
         print("I'm entering state7")
         reply_token = event.reply_token
 
-        send_text_message(reply_token, "請輸入要查詢的縣市:\n\n台北市 請輸入0\n新北市 請輸入1\n桃園縣 請輸入2\n新竹市 請輸入3\n苗栗縣 請輸入4\n台中市 請輸入5\n彰化縣 請輸入6\n雲林縣 請輸入7\n嘉義縣 請輸入8\n台南市 請輸入9\n高雄市 請輸入10\n屏東縣 請輸入11\n花蓮縣 請輸入12\n台東縣 請輸入13\n宜蘭縣 請輸入14\n基隆市 請輸入15\n輸入16返回上一頁")
+        send_text_message(reply_token, "請輸入要查詢的縣市:\n台北市 請輸入0\n新北市 請輸入1\n桃園縣 請輸入2\n新竹市 請輸入3\n苗栗縣 請輸入4\n台中市 請輸入5\n彰化縣 請輸入6\n雲林縣 請輸入7\n嘉義縣 請輸入8\n台南市 請輸入9\n高雄市 請輸入10\n屏東縣 請輸入11\n花蓮縣 請輸入12\n台東縣 請輸入13\n宜蘭縣 請輸入14\n基隆市 請輸入15\n輸入16返回上一頁")
         # self.go_back6()
 
     def is_going_to_state8(self, event):
@@ -315,7 +315,7 @@ class TocMachine(GraphMachine):
             else:
                 pos1 = "0%"
         # reply_arr.append(TextSendMessage("凌晨 " + pos+"C 降雨機率 "+pos1))
-        str_arr = str_arr +"凌晨 " + pos+"C 降雨機率 "+pos1+"\n"
+        str_arr = str_arr +"凌晨 " + pos+"C 降雨機率 "+pos1
         # print("凌晨 " + pos+"C 降雨機率 "+pos1)
         reply_arr.append(TextSendMessage(str_arr))
         reply_arr.append(canmessage1)

@@ -117,7 +117,7 @@ canmessage1 = TemplateSendMessage(
                                 template = ButtonsTemplate(
                                     thumbnail_image_url='https://ppt.cc/f6aUmx@.png',
                                     title = '請問需要什麼服務?',
-                                    text = '如需返回請按返回鍵或輸入"返回"',
+                                    text = '如需返回上一頁請按返回鍵或輸入"返回"',
                                     actions=[
                                         MessageTemplateAction(
                                             label = '今日各地天氣預報',
@@ -154,7 +154,11 @@ def callback():
         if not isinstance(event, MessageEvent):
             continue
         if not isinstance(event.message, TextMessage):
-            line_bot_api.reply_message(event.reply_token, canmessage)
+            if(str(machine.state) == "user"): 
+                line_bot_api.reply_message(event.reply_token, canmessage)
+            elif(str(machine.state) == "state5"):
+                line_bot_api.reply_message(event.reply_token, canmessage1)
+
             continue
         
         for key in keyword:
