@@ -10,16 +10,16 @@ canmessage = TemplateSendMessage(
                                     text = '如需更多功能請按其他鍵或輸入"其他"',
                                     actions=[
                                         MessageTemplateAction(
+                                            label = '今日運勢',
+                                            text = '今日運勢'
+                                        ),
+                                        MessageTemplateAction(
                                             label = '火車訂票',
                                             text = '火車訂票'
                                         ),
                                         MessageTemplateAction(
                                             label = '高鐵訂票',
                                             text = '高鐵訂票'
-                                        ),
-                                        MessageTemplateAction(
-                                            label = '今日運勢',
-                                            text = '今日運勢'
                                         ),
                                         MessageTemplateAction(
                                             label = '其他',
@@ -37,16 +37,12 @@ canmessage1 = TemplateSendMessage(
                                     text = '如需返回請按返回鍵或輸入"返回"',
                                     actions=[
                                         MessageTemplateAction(
-                                            label = '還沒做',
-                                            text = '還沒做'
+                                            label = '今日各地天氣預報',
+                                            text = '今日各地天氣預報'
                                         ),
                                         MessageTemplateAction(
-                                            label = '還沒做',
-                                            text = '還沒做'
-                                        ),
-                                        MessageTemplateAction(
-                                            label = '還沒做',
-                                            text = '還沒做'
+                                            label = '不要按我',
+                                            text = '不要按我'
                                         ),
                                         MessageTemplateAction(
                                             label = '返回',
@@ -57,7 +53,9 @@ canmessage1 = TemplateSendMessage(
                                 )
                             )
 keyword = ["牡羊座", "金牛座", "雙子座", "巨蟹座", "獅子座", "處女座", "天秤座", "天蠍座", "射手座", "摩羯座", "水瓶座", "雙魚座", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-keyword1 = ["還沒做", "返回"]
+keyword1 = [ "返回", "不要按我"]
+keywordc = ["台北市", "新北市", "桃園縣", "新竹市", "苗栗縣", "台中市", "彰化縣", "雲林縣", "嘉義縣", "台南市", "高雄市", "屏東縣", "花蓮縣", "台東縣", "宜蘭縣", "基隆市", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+urlc = ["https://weather.com/zh-TW/weather/today/l/fe7393b7f2c8eed2cf692bd079361df362d9f0c1c0f896e6e46a649295e15c7d", "https://weather.com/zh-TW/weather/today/l/202fab9acca1bbb5edc387b8e8da03beeb7bcef4b4744f237fad2b5ed06ccc9b", "https://weather.com/zh-TW/weather/today/l/2063dc93d721d794396441c2473f2d3e6e5b335903034198829e1e86eb9e83e0", "https://weather.com/zh-TW/weather/today/l/7ceb69e37a100e138b92e592f2bd6619cfa4626f7315d0877b5061494e83bb77", "https://weather.com/zh-TW/weather/today/l/98898840824a2ce5e45198b2a770ac6e8f106f7f5da8d4188342d9a0eb7b4646", "https://weather.com/zh-TW/weather/today/l/dd5ff859897b2c4c4e6685a991f36c262d87df06e83cacbdcc661952cf42f76c", "https://weather.com/zh-TW/weather/today/l/5ab68825e5707d9ae97fff0ce6a466143da423d852b96cacfe685321841852c7", "https://weather.com/zh-TW/weather/today/l/d19a8ded0b14929d05697c400dcfb0fb3e183af6d272d7b3e7c9bffce9ec56b6", "https://weather.com/zh-TW/weather/today/l/10aef81155ecc24e4e5921212f57b57370388c49b9bfe22d4cdf68463ff6b497", "https://weather.com/zh-TW/weather/today/l/428a16ac8864a5387146aa0d8046b67fe787856453e5d97fd86a84b287678ba4", "https://weather.com/zh-TW/weather/today/l/ab6a0d440cf29997c96b86e11b647c285d3a489a623ea04d29fdefe0ea3534b2", "https://weather.com/zh-TW/weather/today/l/0f2fe653d8fc4305e214c9ee0d128f10f8db0658565e7ddd456b5c1ab9bb8dad", "https://weather.com/zh-TW/weather/today/l/00929a4113c22c58c9313b19844bbb6b2df815f80eb2cb96128e68933a503284", "https://weather.com/zh-TW/weather/today/l/55e9e1bcfd283aaa0e2456699b82ef892359d560f1ec47a38a3eeba59ef15b5b", "https://weather.com/zh-TW/weather/today/l/5206d5e441522dd7e4aa1e4197038aae536b860e1e8e8235e2e66cb2f9434128", "https://weather.com/zh-TW/weather/today/l/047be26b6fbb01ad1ce1353c8a1586474caf4949b1d53a4898d598c52954ad72"]
 class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
@@ -88,7 +86,7 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         reply_arr = []
-        reply_arr.append(TextSendMessage("https://www.thsrc.com.tw/"))
+        reply_arr.append(TextSendMessage("https://irs.thsrc.com.tw/IMINT/?locale=tw"))
         reply_arr.append(canmessage)
         send_message(reply_token, reply_arr)
         self.go_back()
@@ -126,7 +124,6 @@ class TocMachine(GraphMachine):
                 i=i+1
         else :
             i=int(event.message.text)
-        
 
         reply_token = event.reply_token
         if (i==12):
@@ -210,7 +207,119 @@ class TocMachine(GraphMachine):
             return
 
         reply_arr = []
-        reply_arr.append(TextSendMessage("此功能開發中，敬請期待"))
+        reply_arr.append(TextSendMessage("就跟你說不要按了..."))
         reply_arr.append(canmessage1)
         send_message(reply_token, reply_arr)
+        self.go_back5()
         # self.go_back()
+        
+    def is_going_to_state7(self, event):
+        text = event.message.text
+        return text.lower() == "今日各地天氣預報"
+
+    def on_enter_state7(self, event):
+        print("I'm entering state7")
+        reply_token = event.reply_token
+
+        send_text_message(reply_token, "請輸入要查詢的縣市:\n\n台北市 請輸入0\n新北市 請輸入1\n桃園縣 請輸入2\n新竹市 請輸入3\n苗栗縣 請輸入4\n台中市 請輸入5\n彰化縣 請輸入6\n雲林縣 請輸入7\n嘉義縣 請輸入8\n台南市 請輸入9\n高雄市 請輸入10\n屏東縣 請輸入11\n花蓮縣 請輸入12\n台東縣 請輸入13\n宜蘭縣 請輸入14\n基隆市 請輸入15\n輸入16返回上一頁")
+        # self.go_back6()
+
+    def is_going_to_state8(self, event):
+        text = event.message.text
+        return text.lower() in keywordc
+
+    def on_enter_state8(self, event):
+        print("I'm entering state8")
+        reply_token = event.reply_token
+        i =0
+        if(len(event.message.text) == 3):
+            for key in keywordc:
+                if(event.message.text == key):
+                    break
+                i=i+1
+        else :
+            i = int(event.message.text)
+
+        if(i == 16):
+            send_message(reply_token, canmessage1)
+            self.go_back6()
+
+        reply_arr = []
+        str_arr = []
+        str_arr = keywordc[i]+"\n"
+        # reply_arr.append(TextSendMessage(keywordc[i]))
+        print(keywordc[i])
+        print(urlc[i])
+        res = requests.get(urlc[i])
+
+        pos = res.text[res.text.find('class="CurrentConditions--tempValue--3KcTQ')+44:res.text.find('class="CurrentConditions--tempValue--3KcTQ')+47]
+        str_arr = str_arr +"目前氣溫 "+pos+"C\n"
+        # reply_arr.append(TextSendMessage("目前氣溫 "+pos+"C"))
+        print("目前氣溫 "+pos+"C")
+        pos = res.text[res.text.find('午前'):res.text.find('午前')+1000]
+        pos1 = pos[pos.find("降雨機率")+11:pos.find("降雨機率")+14]
+        pos = pos[pos.find('"TemperatureValue"')+19:pos.find('"TemperatureValue"')+22]
+        if(pos1[2]!="%"):
+            #100% and 0~9%
+            if("%" in pos1):
+                pos1 = pos1 [0:2]
+            elif(pos1 == "100"):
+                pos1 = pos1+"%"
+            else:
+                pos1 = "0%"
+        # reply_arr.append(TextSendMessage("早上 " + pos+"C 降雨機率 "+pos1))
+        str_arr = str_arr +"早上 " + pos+"C 降雨機率 "+pos1+"\n"
+
+
+        pos = res.text[res.text.find('午後'):res.text.find('午後')+2000]
+        pos1 = pos[pos.find("降雨機率")+11:pos.find("降雨機率")+14]
+        pos = pos[pos.find('"TemperatureValue"')+19:pos.find('"TemperatureValue"')+22]
+        if(pos1[2]!="%"):
+            #100% and 0~9%
+            if("%" in pos1):
+                pos1 = pos1 [0:2]
+            elif(pos1 == "100"):
+                pos1 = pos1+"%"
+            else:
+                pos1 = "0%"
+        # reply_arr.append(TextSendMessage("下午 " + pos+"C 降雨機率 "+pos1))
+        str_arr = str_arr +"下午 " + pos+"C 降雨機率 "+pos1+"\n"
+        # print("下午 " + pos+"C 降雨機率 "+pos1)
+
+
+        pos = res.text[res.text.find('傍晚'):res.text.find('傍晚')+2000]
+        pos1 = pos[pos.find("降雨機率")+11:pos.find("降雨機率")+14]
+        pos = pos[pos.find('"TemperatureValue"')+19:pos.find('"TemperatureValue"')+22]
+        if(pos1[2]!="%"):
+            #100% and 0~9%
+            if("%" in pos1):
+                pos1 = pos1 [0:2]
+            elif(pos1 == "100"):
+                pos1 = pos1+"%"
+            else:
+                pos1 = "0%"
+        # reply_arr.append(TextSendMessage("傍晚 " + pos+"C 降雨機率 "+pos1))        
+        # print("傍晚 " + pos+"C 降雨機率 "+pos1)
+        str_arr = str_arr +"傍晚 " + pos+"C 降雨機率 "+pos1+"\n"
+
+
+        pos = res.text[res.text.find('徹夜'):res.text.find('徹夜')+2000]
+        pos1 = pos[pos.find("降雨機率")+11:pos.find("降雨機率")+14]
+        pos = pos[pos.find('"TemperatureValue"')+19:pos.find('"TemperatureValue"')+22]
+        if(pos1[2]!="%"):
+            #100% and 0~9%
+            if("%" in pos1):
+                pos1 = pos1 [0:2]
+            elif(pos1 == "100"):
+                pos1 = pos1+"%"
+            else:
+                pos1 = "0%"
+        # reply_arr.append(TextSendMessage("凌晨 " + pos+"C 降雨機率 "+pos1))
+        str_arr = str_arr +"凌晨 " + pos+"C 降雨機率 "+pos1+"\n"
+        # print("凌晨 " + pos+"C 降雨機率 "+pos1)
+        reply_arr.append(TextSendMessage(str_arr))
+        reply_arr.append(canmessage1)
+
+        send_message(reply_token , reply_arr)
+        self.go_back5()
+        
